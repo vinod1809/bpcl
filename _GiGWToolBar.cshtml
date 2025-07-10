@@ -1,0 +1,113 @@
+﻿
+
+
+
+<div class="gigw-toolbar">
+    @*1. Skip to Main Content*@
+    <a href="#" id="skipLink" title="Skip to Main Content">
+        <img src="/images/icons/skip.png" alt="Skip to Main" />
+    </a>
+
+    @*2. Screen Reader Access*@
+    <a href="/ScreenReaderAccess" title="Screen Reader Access">
+        <img src="/images/icons/reader.png" alt="Screen Reader" />
+    </a>
+
+    @*3. Letter Spacing Toggle*@
+    <a href="#" onclick="toggleLetterSpacing()" title="Toggle Letter Spacing">
+        <img src="/images/icons/letter-spacing.png" alt="Letter Spacing" />
+    </a>
+
+    @*4. Vertical Spacing Toggle*@
+    <a href="#" id="accessibilityToggleBtn" title="Toggle Vertical Spacing">
+        <img src="/images/icons/vertical-spacing.png" alt="Line Spacing" />
+    </a>
+
+    @*5. Font Size Dropdown*@
+    @*<div class="font-size-dropdown" id="fontSizeDropdown">
+            <img src="/images/icons/font-size.png" alt="Font Size" />
+            <div class="font-size-popup" id="fontSizePopup">
+                <select id="fontSizeSelect" onchange="changeFontSize(this.value)">
+                    <option value="reset">A</option>
+                    <option value="small">A-</option>
+                    <option value="large">A+</option>
+                </select>
+            </div>
+        </div>*@
+    <div class="font-size-dropdown" id="fontSizeDropdown">
+        <img src="/images/icons/font-size.png" alt="Font Size" />
+        <div class="font-size-popup" id="fontSizePopup">
+            <div class="font-buttons">
+                <button onclick="changeFontSize('small')" title="Decrease Font">A-</button>
+                <button onclick="changeFontSize('reset')" title="Reset Font">A</button>
+                <button onclick="changeFontSize('large')" title="Increase Font">A+</button>
+            </div>
+        </div>
+    </div>
+
+
+    @*6. Theme Switch*@
+    <div class="theme-switcher" title="Switch Theme">
+        <a href="#" class="theme-default" onclick="setTheme('white')">
+            <img src="/images/icons/theme-white.png" alt="White Theme" />
+        </a>
+        <a href="#" class="theme-black" onclick="setTheme('black')">
+            <img src="/images/icons/theme-black.png" alt="Black Theme" />
+        </a>
+        <a href="#" class="theme-gray" onclick="setTheme('gray')">
+            <img src="/images/icons/theme-gray.png" alt="Gray Theme" />
+        </a>
+    </div>
+
+    @*7. Search Icon*@
+    <a href="#" onclick="toggleSearchBar()" title="Search">
+        <img src="/images/icons/search.png" alt="Search" />
+    </a>
+
+    @*8. Language Switcher Dropdown*@
+    @*<div class="lang-switcher" id="langSwitcher">
+            <img src="/images/icons/lang.png" alt="Language" onclick="toggleLangDropdown()" />
+            <div class="lang-popup" id="langPopup">
+                <select onchange="switchLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी</option>
+                </select>
+            </div>
+        </div>*@
+
+    <div class="lang-switcher" id="langSwitcher">
+        <img src="/images/icons/lang.png" alt="Language" />
+        <div class="lang-popup" id="langPopup">
+            <button onclick="switchLanguage('en')">English</button>
+            <button onclick="switchLanguage('hi')">हिंदी</button>
+        </div>
+    </div>
+
+</div>
+
+ @*Header Section*@ 
+<div class="header-wrapper">
+    <div class="header-left">
+        <img src="/images/blue-flame-left.jpg" alt="Flame Left" class="flame-img">
+        <h1>My Bharatgas</h1>
+    </div>
+    <div class="header-right">
+        <img src="/images/bharatgas-logo.png" alt="Bharatgas Logo" class="logo">
+        <img src="/images/pahal-logo.png" alt="Pahal Logo" class="logo">
+        <a href="@Url.Action("Login", "Account")" class="btn-login">Sign in</a>
+        <a href="@Url.Action("Register", "Account")" class="btn-login">New User</a>
+    </div>
+</div>
+
+ @*Navigation*@ 
+<div class="nav-strip">
+    <a href="@Url.Action("Index", "Home")">HOME</a>
+    <a href="#">ABOUT US +</a>
+    <a href="#">BOOK LPG REFILL</a>
+    <a href="#">GET NEW CONNECTION</a>
+    <a href="#">SERVICES</a>
+    <a href="#">CONTACT US</a>
+</div>
+
+
+

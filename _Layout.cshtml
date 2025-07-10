@@ -1,0 +1,197 @@
+﻿
+
+
+
+
+
+
+@using System.Web.Security
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title - Bharat Gas</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    @*<link href="~/Content/gigw.css" rel="stylesheet" />*@
+    <link href="@Url.Content("~/Content/gigw.css")?v=@DateTime.Now.Ticks" rel="stylesheet" />
+
+
+    <style>
+        a {
+            color: #0d6efd;
+            font-weight: 500;
+        }
+
+            a:hover, .nav-link:hover, .nav-link:focus {
+                color: #0a58ca;
+                text-decoration: none;
+            }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1040;
+            display: none;
+        }
+
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: #1f2937;
+            color: #fff;
+            z-index: 1050;
+            transition: left 0.3s;
+            padding: 20px;
+        }
+
+            .mobile-sidebar.open {
+                left: 0;
+            }
+
+        .overlay.show {
+            display: block;
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: #fff !important;
+        }
+
+            .navbar-dark .navbar-nav .nav-link:hover,
+            .navbar-dark .navbar-nav .nav-link:focus {
+                color: #fff !important;
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+
+        footer {
+            background-color: #212529;
+            color: #adb5bd;
+        }
+
+        .hidden-btn {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body class="font-medium">
+    @Html.Partial("_GiGWToolBar")
+
+    <div class="bg-white py-3 border-bottom">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="@Url.Action("Index", "Home")">
+                <img src="~/images/bharatgas-logo.jpg" alt="Bharat Gas Logo" style="height:60px;">
+            </a>
+            <h1 class="h4 mb-0">eBharatGas Services Portal</h1>
+        </div>
+    </div>
+
+    <div class="overlay" id="menuOverlay" onclick="toggleSidebar(false)"></div>
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <button class="btn btn-sm btn-light mb-3" onclick="toggleSidebar(false)">&times; Close</button>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link text-white" href="@Url.Action("Index", "Home")">Home</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="@Url.Action("Index", "BookCylinder")">Book Cylinder</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="@Url.Action("Index", "Orders")">My Orders</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="@Url.Action("Index", "Support")">Support</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="@Url.Action("Index", "Reports")">Reports</a></li>
+        </ul>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-flex" style="background-color: royalblue;" role="navigation" aria-label="Primary Navigation">
+        <div class="container">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("Index", "Home")">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("Index", "BookCylinder")">Book Cylinder</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("Index", "Orders")">My Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("Index", "Support")">Support</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("Index", "Reports")">Reports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("Index", "Employee")">Create New Employee</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                @if (Request.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <span class="nav-link text-white">Welcome, @User.Identity.Name</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="@Url.Action("Logout", "Account")">Logout</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="@Url.Action("Login", "Account")">Login</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </nav>
+
+    <nav class="d-lg-none bg-dark text-white px-3 py-2">
+        <button class="btn btn-sm btn-light" onclick="toggleSidebar(true)" aria-label="Toggle menu">☰ Menu</button>
+    </nav>
+
+    <div class="container mt-3">
+        <div class="alert alert-info text-center" role="alert">
+            Welcome to the official Bharat Gas e-Services Portal. Book your cylinder or manage your account online.
+        </div>
+    </div>
+
+    <main id="maincontent" tabindex="-1" role="main" class="container my-4">
+        @RenderBody()
+    </main>
+
+    <footer class="mt-4 py-3" role="contentinfo">
+        <div class="container text-center">
+            <p class="mb-0">© 2025 Bharat Petroleum Corporation Ltd. All rights reserved.</p>
+            <p class="mb-0">Website complies with Government of India GIGW guidelines.</p>
+        </div>
+    </footer>
+
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="@Url.Content("~/Scripts/gigw.js")?v=@DateTime.Now.Ticks"></script>
+
+    <script>
+        function toggleSidebar(open) {
+            var sidebar = document.getElementById("mobileSidebar");
+            var overlay = document.getElementById("menuOverlay");
+            if (open) {
+                sidebar.classList.add("open");
+                overlay.classList.add("show");
+            } else {
+                sidebar.classList.remove("open");
+                overlay.classList.remove("show");
+            }
+        }
+    </script>
+
+
+    <!--<script src="~/Scripts/gigw.js" defer></script>-->
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
